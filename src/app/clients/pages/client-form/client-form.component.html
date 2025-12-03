@@ -1,0 +1,23 @@
+<div class="p-3 flex justify-content-center">
+  <mat-card class="p-4" style="width: 500px;">
+    <h2>Registrar Cliente</h2>
+    <form (ngSubmit)="save()">
+      <mat-form-field class="w-full">
+        <mat-label>Nombre Completo</mat-label>
+        <input matInput [(ngModel)]="client.name" name="name" required>
+      </mat-form-field>
+      <mat-form-field class="w-full">
+        <mat-label>Correo Electrónico</mat-label>
+        <input matInput [(ngModel)]="client.email" name="email">
+      </mat-form-field>
+      <mat-form-field class="w-full">
+        <mat-label>Teléfono</mat-label>
+        <input matInput [(ngModel)]="client.phone" name="phone">
+      </mat-form-field>
+      <div class="flex justify-content-end mt-2">
+        <button mat-button color="warn" routerLink="/clients/list" type="button">Cancelar</button>
+        <button mat-raised-button color="primary" type="submit">Guardar</button>
+      </div>
+    </form>
+  </mat-card>
+</div>

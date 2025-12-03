@@ -1,0 +1,72 @@
+<mat-sidenav-container fullscreen>
+  <mat-sidenav #sidenav mode="push" style="width: 250px;">
+    
+    <mat-toolbar color="primary" class="flex flex-column align-items-start justify-content-center" style="height: auto; padding: 20px;">
+      <div class="text-xl">Menú</div>
+      <div class="text-sm opacity-80 mt-1">Rol: {{ isAdmin ? 'Admin' : 'Cajero' }}</div>
+    </mat-toolbar>
+
+    <mat-nav-list>
+      <div mat-subheader>Ventas</div>
+      <a mat-list-item routerLink="/sales/pos" (click)="sidenav.toggle()">
+         <mat-icon matListItemIcon>point_of_sale</mat-icon> Caja (POS)
+      </a>
+      <a mat-list-item routerLink="/sales/history" (click)="sidenav.toggle()">
+         <mat-icon matListItemIcon>history</mat-icon> Historial
+      </a>
+      
+      <ng-container *ngIf="isAdmin">
+        <mat-divider></mat-divider>
+        <div mat-subheader>Inventario</div>
+        <a mat-list-item routerLink="/products/list" (click)="sidenav.toggle()">
+          <mat-icon matListItemIcon>inventory_2</mat-icon> Productos
+        </a>
+        <a mat-list-item routerLink="/products/categories" (click)="sidenav.toggle()">
+          <mat-icon matListItemIcon>category</mat-icon> Categorías
+        </a>
+        <a mat-list-item routerLink="/products/movements" (click)="sidenav.toggle()">
+          <mat-icon matListItemIcon>receipt_long</mat-icon> Bitácora
+        </a>
+        
+        <mat-divider></mat-divider>
+        <div mat-subheader>Admin</div>
+        <a mat-list-item routerLink="/clients/list" (click)="sidenav.toggle()">
+          <mat-icon matListItemIcon>people</mat-icon> Clientes
+        </a>
+        <a mat-list-item routerLink="/reports/sales" (click)="sidenav.toggle()">
+          <mat-icon matListItemIcon>date_range</mat-icon> Reporte Fechas
+        </a>
+        <a mat-list-item routerLink="/dashboard" (click)="sidenav.toggle()">
+          <mat-icon matListItemIcon>bar_chart</mat-icon> Dashboard
+        </a>
+      </ng-container>
+      
+      <mat-divider></mat-divider>
+      <a mat-list-item routerLink="/auth/profile" (click)="sidenav.toggle()">
+        <mat-icon matListItemIcon>person</mat-icon> Mi Perfil
+      </a>
+      
+      <a mat-list-item (click)="onLogout()" style="cursor: pointer; color: #f44336; font-weight: bold;">
+        <mat-icon matListItemIcon style="color: #f44336;">logout</mat-icon> Salir
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  
+  <mat-toolbar color="primary">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>StoreHub</span>
+    <span class="spacer"></span>
+    <button mat-icon-button routerLink="/auth/profile" matTooltip="Mi Perfil">
+        <mat-icon>account_circle</mat-icon>
+    </button>
+    <button mat-icon-button (click)="onLogout()" matTooltip="Cerrar Sesión">
+        <mat-icon>logout</mat-icon>
+    </button>
+  </mat-toolbar>
+  
+  <div class="container p-4">
+    <router-outlet></router-outlet>
+  </div>
+</mat-sidenav-container>

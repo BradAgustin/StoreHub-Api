@@ -1,0 +1,14 @@
+<div class="p-3">
+  <h1>Historial de Ventas</h1>
+  <mat-card>
+    <table mat-table [dataSource]="sales" class="w-full">
+      <ng-container matColumnDef="id"><th mat-header-cell *matHeaderCellDef> Ticket # </th><td mat-cell *matCellDef="let sale"> {{sale.id}} </td></ng-container>
+      <ng-container matColumnDef="date"><th mat-header-cell *matHeaderCellDef> Fecha </th><td mat-cell *matCellDef="let sale"> {{sale.date | date:'short'}} </td></ng-container>
+      <ng-container matColumnDef="user"><th mat-header-cell *matHeaderCellDef> Vendedor </th><td mat-cell *matCellDef="let sale"> {{sale.user || 'Desconocido'}} </td></ng-container>
+      <ng-container matColumnDef="total"><th mat-header-cell *matHeaderCellDef> Total </th><td mat-cell *matCellDef="let sale" class="font-bold text-primary"> {{sale.total | currency}} </td></ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <div *ngIf="sales.length === 0" class="p-4 text-center">No hay ventas registradas.</div>
+  </mat-card>
+</div>

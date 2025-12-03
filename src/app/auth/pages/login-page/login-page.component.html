@@ -1,0 +1,28 @@
+<div class="flex flex-column align-items-center justify-content-center h-screen bg-gray-100">
+  <mat-card class="p-4 shadow-4" style="width: 350px;">
+    <div class="text-center mb-4">
+      <h2 class="text-primary m-0">StoreHub</h2>
+      <p class="text-gray-500 text-sm">Bienvenido</p>
+    </div>
+    <form (ngSubmit)="onLogin()">
+      <mat-form-field class="w-full">
+        <mat-label>Usuario</mat-label>
+        <input matInput [(ngModel)]="loginForm.username" name="username" required>
+      </mat-form-field>
+
+      <mat-form-field class="w-full">
+        <mat-label>Contraseña</mat-label>
+        <input matInput type="password" [(ngModel)]="loginForm.password" name="password" required>
+      </mat-form-field>
+
+      <button mat-flat-button color="primary" class="w-full mt-2" type="submit" [disabled]="loading">
+        <span *ngIf="!loading">INGRESAR</span>
+        <mat-spinner *ngIf="loading" diameter="20" class="m-auto"></mat-spinner>
+      </button>
+      
+      <div class="text-center mt-3">
+        <a routerLink="/auth/register" class="text-sm">Crear cuenta nueva</a>
+      </div>
+    </form>
+  </mat-card>
+</div>

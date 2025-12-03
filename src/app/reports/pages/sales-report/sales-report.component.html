@@ -1,0 +1,36 @@
+<div class="p-3">
+  <h1>Reporte de Ingresos</h1>
+  <mat-card class="mb-3 p-3">
+    <div class="flex gap-3 align-items-center flex-wrap">
+      <mat-form-field>
+        <mat-label>Fecha Inicio</mat-label>
+        <input matInput type="date" [(ngModel)]="filters.start">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Fecha Fin</mat-label>
+        <input matInput type="date" [(ngModel)]="filters.end">
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="getReport()" [disabled]="loading" style="height: 56px; margin-bottom: 18px;">
+        <mat-icon>search</mat-icon> Filtrar
+      </button>
+    </div>
+  </mat-card>
+  <div *ngIf="loading" class="text-center p-3"><mat-spinner diameter="40" class="m-auto"></mat-spinner></div>
+  <div *ngIf="data && !loading" class="fade-in">
+    <mat-card class="bg-primary text-white p-3 mb-3 text-center">
+      <h2>Total en Periodo</h2>
+      <div class="text-5xl font-bold">{{ data.total_period | currency }}</div>
+    </mat-card>
+    <mat-card>
+      <table mat-table [dataSource]="data.sales" class="w-full">
+        <ng-container matColumnDef="date"><th mat-header-cell *matHeaderCellDef>Fecha</th><td mat-cell *matCellDef="let s">{{s.date | date:'short'}}</td></ng-container>
+        <ng-container matColumnDef="client"><th mat-header-cell *matHeaderCellDef>Cliente</th><td mat-cell *matCellDef="let s">{{s.client}}</td></ng-container>
+        <ng-container matColumnDef="user"><th mat-header-cell *matHeaderCellDef>Vendedor</th><td mat-cell *matCellDef="let s">{{s.user}}</td></ng-container>
+        <ng-container matColumnDef="total"><th mat-header-cell *matHeaderCellDef>Total</th><td mat-cell *matCellDef="let s" class="font-bold">{{s.total | currency}}</td></ng-container>
+        <tr mat-header-row *matHeaderRowDef="['date','client','user','total']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['date','client','user','total'];"></tr>
+      </table>
+      <div *ngIf="data.sales.length === 0" class="p-4 text-center text-gray-500">No hay ventas en este rango.</div>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="p-3">
+  <h1>Categorías</h1>
+  <div class="flex gap-2 mb-3 align-items-center">
+    <mat-form-field class="flex-grow-1" appearance="outline" style="margin-bottom: -1.25em">
+      <mat-label>Nueva categoría...</mat-label>
+      <input matInput [(ngModel)]="newCatName" (keyup.enter)="add()">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="add()" [disabled]="!newCatName" style="height: 56px">
+      <mat-icon>add</mat-icon> Agregar
+    </button>
+  </div>
+  <mat-card>
+    <mat-list>
+      <mat-list-item *ngFor="let c of categories" class="hover:bg-gray-50 transition-colors">
+        <mat-icon matListItemIcon class="text-gray-500">folder</mat-icon>
+        <div matListItemTitle class="font-bold cursor-pointer hover:text-primary" (click)="goToProducts(c.id)">
+          {{ c.name }}
+        </div>
+        <div matListItemLine class="text-sm text-gray-400">{{ c.description || 'Sin descripción' }}</div>
+        <div class="flex gap-1">
+          <button mat-icon-button (click)="goToProducts(c.id)" matTooltip="Ver Productos" color="accent">
+            <mat-icon>visibility</mat-icon>
+          </button>
+          <button mat-icon-button (click)="edit(c)" color="primary" matTooltip="Editar">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="delete(c.id)" color="warn" matTooltip="Eliminar">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </mat-list>
+    <div *ngIf="categories.length === 0" class="p-5 text-center text-gray-500">
+      No hay categorías registradas.
+    </div>
+  </mat-card>
+</div>
